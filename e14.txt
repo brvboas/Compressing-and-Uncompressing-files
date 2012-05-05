@@ -1,0 +1,863 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<!-- saved from url=(0070)http://download.oracle.com/javase/tutorial/java/data/numberformat.html -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <title>Formatting Numeric Print Output
+</title>
+<style type="text/css">
+    .FigureCaption   { 
+        margin-left: 1in; 
+        margin-right: 1in; 
+        font-family: sans-serif; 
+        font-size: smaller; 
+        text-align: justify;
+    }
+    #TopBar_bl {
+        background: url(../../images/java_bar_bl.gif) 0 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_br {
+        background: url(../../images/java_bar_br.gif) 100% 100% no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tl {
+        background: url(../../images/java_bar_tl.gif) 0 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar_tr {
+        background: url(../../images/java_bar_tr.gif) 100% 0 no-repeat;
+        width: 100%;
+        height: 60px;
+    }
+    #TopBar {
+        background: #35556B url(../../images/java_bar.gif);
+        margin: 10px 10px 0 10px;
+        height:60px;
+        min-width:700px;
+        color: white;
+        font-family: sans-serif; 
+        font-weight: bold;
+    }
+    @media print {
+        #BreadCrumbs, #Download {
+            display: none;
+        }
+    }
+    #TopBar_right {
+        line-height: 14px;
+        float: right;
+        padding-top: 2px;
+        padding-right: 30px;
+        text-align: center;
+    }
+    @media print {
+        #TopBar_right {
+            display: none;
+        }
+    }
+    #TopBar_right a {
+        font-size: 12px;
+        margin: 3px;
+        padding: 0;
+    }
+    #TopBar a:visited, #TopBar a:link {
+        color: white;
+        text-decoration: none;
+    }
+    #TopBar a:hover, #TopBar a:active  {
+        background-color: white;
+        color: #35556B;
+    }
+    #BreadCrumbs {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+        float: right;
+    }
+    #BreadCrumbs a {
+        color: blue;
+    }
+    #BreadCrumbs a:visited, #BreadCrumbs a:link {
+        text-decoration: none;
+    }
+    #BreadCrumbs a:hover, #BreadCrumbs a:active {
+        text-decoration: underline;
+    }
+    #PageTitle {
+        margin: 0 5px 0.5em 0;
+        color: #F90000;
+        font-family: sans-serif; 
+        font-weight: bold;
+        font-size: 20px;
+    }
+    .LeftBar_shown {
+        width: 13em;
+        float: left;
+        margin-left: 10px;
+        margin-top: 4px;
+        margin-bottom: 2em;
+    }
+    @media print {
+        .LeftBar_shown {
+            display: none;
+        }
+    }
+    .LeftBar_hidden {
+        display: none;
+    }
+    #Footer {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    #Footer2 {
+        padding-top: 10px;
+        padding-left: 10px;
+        margin-right: 10px;
+    }
+    .NavBit  {
+        padding: 4px 5px 0.5em 0;
+        font-family: sans-serif; 
+    }
+    @media print {
+        .NavBit {
+            display: none;
+        }
+    }
+    #TagNotes {
+        text-align: right;
+        font-size: smaller;
+        font-family: sans-serif; 
+    }
+    @media print {
+        #TagNotes a:visited, #TagNotes a:link {
+            color: #35556B;
+            text-decoration: none;
+        }
+    }
+    #Contents a, .NavBit a, #TagNotes a {
+        color: blue
+    }
+    #TagNotes a:visited, #TagNotes a:link,
+    #Contents a:visited, #Contents a:link,
+    .NavBit a:visited, .NavBit a:link {
+        text-decoration: none;
+    }
+    #TagNotes a:hover, #TagNotes a:active,   
+    #Contents a:hover, #Contents a:active,   
+    .NavBit a:hover, .NavBit a:active {  
+        text-decoration: underline;
+    }
+    #Contents {
+        float: left;
+        font-family: sans-serif; 
+    }
+    @media print {
+        #Contents {
+            display: none;
+        }
+    }
+    @media screen {
+        div.PrintHeaders {
+            display: none;
+        }
+    }
+    .linkLESSON, .nolinkLESSON {
+        margin-left: 0.5em;
+        text-indent: -0.5em
+    }
+    .linkAHEAD, .nolinkAHEAD, .linkQUESTIONS, .nolinkQUESTIONS   {
+        margin-left: 1.5em; 
+        text-indent: -0.5em
+    }
+    .linkBHEAD, .nolinkBHEAD   {
+        margin-left: 2.5em;
+        text-indent: -0.5em
+    }
+    .linkCHEAD, .nolinkCHEAD   {
+        margin-left: 3.5em;
+        text-indent: -0.5em
+    }
+    .nolinkLESSON, .nolinkAHEAD, .nolinkBHEAD, .nolinkCHEAD,
+    .nolinkQUESTIONS {
+        font-weight: bold;
+        color: #F90000;
+    }
+    .MainFlow_indented {
+        margin-right: 10px;
+        margin-left: 15em;
+        margin-bottom: 2em;
+
+    }
+    .MainFlow_wide {
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 2em;
+
+    }
+    @media print {
+        .MainFlow_indented, .MainFlow_wide {
+            padding-top: 0;
+            margin-top: 10px;
+            margin-right: 10px;
+            margin-left: 0;
+        }
+    }
+    h3, h4, h5 {
+        color: #F90000;
+        font-family: sans-serif;
+    }
+    #ToggleLeft {
+        display: none;
+    }
+
+    /t
+
+</style>
+<script type="text/javascript">
+    function leftBar() {
+        var nameq = 'tutorial_showLeftBar='
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookieString = cookies[i];
+            while (cookieString.charAt(0) == ' ') {
+                cookieString = cookieString.substring(1, cookieString.length);
+            }
+            if (cookieString.indexOf(nameq) == 0) {
+                cookieValue =  cookieString.substring(nameq.length,
+                        cookieString.length);
+                return cookieValue == 'yes';
+            }
+        }
+        return true;
+    }
+
+    function showLeft(b) {
+        var contents = document.getElementById("LeftBar");
+        var main = document.getElementById("MainFlow");
+        var toggle = document.getElementById("ToggleLeft");
+        if (b) {
+            contents.className = "LeftBar_shown";
+            main.className = "MainFlow_indented";
+            toggle.innerHTML = "Hide the TOC";
+            document.cookie = 'tutorial_showLeftBar=yes; path=/';
+        } else {
+            contents.className = "LeftBar_hidden";
+            main.className = "MainFlow_wide";
+            toggle.innerHTML = "Show the TOC";
+            document.cookie = 'tutorial_showLeftBar=no; path=/';
+        }
+    }
+
+    function toggleLeft() {
+        showLeft(document.getElementById("LeftBar").className ==
+                "LeftBar_hidden");
+        document.getElementById("ToggleLeft").blur();
+    }
+
+    function load() {
+        showLeft(leftBar());
+        document.getElementById("ToggleLeft").style.display="inline";
+    }
+    
+</script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+
+    </head>
+<body onload="load()">
+    <div id="TopBar"> <div id="TopBar_tr"> <div id="TopBar_tl"> <div id="TopBar_br"> <div id="TopBar_bl"> 
+                        <div id="TopBar_right"> 
+                            <a target="_blank" href="http://java.sun.com/javase/6/download.jsp">Download
+                                the JDK</a>
+                            <br>
+                            <a href="http://download.oracle.com/javase/tutorial/search.html" target="_blank">Search the
+                                Tutorials</a>
+                            <br>
+                            <a href="javascript:toggleLeft()" id="ToggleLeft" style="display: inline; ">Hide the TOC</a>
+                        </div>
+                    </div> </div> </div> </div> </div>
+    <div class="PrintHeaders">
+        <b>Trail:</b> Learning the Java Language
+        <br><b>Lesson:</b> Numbers and Strings
+        <br><b>Section:</b> Numbers
+    </div>
+
+    <div id="LeftBar" class="LeftBar_shown">
+        <div id="Contents">
+            <div class="linkLESSON"><a href="http://download.oracle.com/javase/tutorial/java/data/index.html">Numbers and Strings</a></div>
+<div class="linkAHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/numbers.html">Numbers</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/numberclasses.html">The Numbers Classes</a></div>
+<div class="nolinkBHEAD">Formatting Numeric Print Output</div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/beyondmath.html">Beyond Basic Arithmetic</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/numbersummary.html">Summary of Numbers</a></div>
+<div class="linkQUESTIONS"><a href="http://download.oracle.com/javase/tutorial/java/data/QandE/numbers-questions.html">Questions and Exercises</a></div>
+<div class="linkAHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/characters.html">Characters</a></div>
+<div class="linkAHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/strings.html">Strings</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/converting.html">Converting Between Numbers and Strings</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/manipstrings.html">Manipulating Characters in a String</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/comparestrings.html">Comparing Strings and Portions of Strings</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/buffers.html">The StringBuilder Class</a></div>
+<div class="linkBHEAD"><a href="http://download.oracle.com/javase/tutorial/java/data/stringsummary.html">Summary of Characters and Strings</a></div>
+<div class="linkQUESTIONS"><a href="http://download.oracle.com/javase/tutorial/java/data/QandE/characters-questions.html">Questions and Exercises</a></div>
+</div>
+    </div>
+    <div id="MainFlow" class="MainFlow_indented">
+            <span id="BreadCrumbs">
+                <a href="http://download.oracle.com/javase/tutorial/index.html" target="_top">Home Page</a>
+                &gt;
+                <a href="http://download.oracle.com/javase/tutorial/java/index.html" target="_top">Learning the Java Language</a>
+                &gt;
+                <a href="http://download.oracle.com/javase/tutorial/java/data/index.html" target="_top">Numbers and Strings</a>
+            </span>
+            <div class="NavBit">
+                <a target="_top" href="http://download.oracle.com/javase/tutorial/java/data/numberclasses.html">«&nbsp;Previous</a>&nbsp;•&nbsp;<a target="_top" href="http://download.oracle.com/javase/tutorial/java/TOC.html">Trail</a>&nbsp;•&nbsp;<a target="_top" href="http://download.oracle.com/javase/tutorial/java/data/beyondmath.html">Next&nbsp;»</a>
+            </div>
+            <div id="PageTitle">Formatting Numeric Print Output</div>
+            <blockquote>
+<!-- Formatting Numeric Print Output -->
+
+Earlier you saw the use of the <code>print</code> and <code>println</code>
+methods for printing strings to standard output (<code>System.out</code>).
+Since all numbers can be converted to strings (as you will see later in this
+lesson), 
+you can use these methods to print out an arbitrary mixture of strings and
+numbers. 
+
+The Java programming language has other methods, however,
+that allow you to exercise much 
+more control over your print output when numbers are included.
+<p>
+</p><h3 fmstyle="C-Head">The printf and format Methods</h3>
+The <code>java.io</code> package includes a <code>PrintStream</code> class that has two formatting 
+methods that you can use to replace <code>print</code> 
+and <code>println</code>.  These methods, <code>format</code> and
+<code>printf</code>, are equivalent to one another. 
+The familiar <code>System.out</code> that you have 
+been using happens to be a <code>PrintStream</code> object,
+so you can invoke <code>PrintStream</code> 
+methods on <code>System.out</code>. Thus, you can use 
+<code>format</code> or <code>printf</code> 
+anywhere in your code where you have previously been using
+<code>print</code> or <code>println</code>. For example, 
+<blockquote><pre>System.out.format(.....);
+</pre></blockquote>
+<p>
+The syntax for these two 
+<a class="APILink" target="_blank" href="http://download.oracle.com/javase/7/docs/api/java/io/PrintStream.html"><code>java.io.PrintStream</code> </a> methods is the same:
+
+</p><blockquote><pre>public PrintStream format(String format, Object... args)
+</pre></blockquote>
+where <code>format</code> is a string that specifies the formatting to be
+used and <code>args</code> is a list of the variables to be printed using
+that formatting. A simple example would be 
+<blockquote><pre>System.out.format("The value of the float variable is %f, while the value of the " + 
+                   "integer variable is %d, and the string is %s", floatVar, intVar, stringVar); 
+</pre></blockquote>
+
+
+The first parameter, <code>format</code>, is a format string specifying
+how the objects in the second parameter, <code>args</code>, are
+to be formatted. The format string contains
+plain text as well as <em>format specifiers</em>, which are special 
+characters that format the arguments of <code>Object... args</code>. 
+(The notation <code>Object... args</code>
+is called <em>varargs</em>, which means that the number
+of arguments may vary.)
+<p>
+Format specifiers begin with a percent sign (%) and end with a <i>converter</i>.
+The converter is a character indicating the type of argument to be formatted.
+In between the percent sign (%) and the converter you can have optional flags
+and specifiers.
+There are many converters, flags, and specifiers, which are documented in 
+<a class="APILink" target="_blank" href="http://download.oracle.com/javase/7/docs/api/java/util/Formatter.html"><code>java.util.Formatter</code> </a>
+</p><p>
+Here is a basic example:
+</p><blockquote><pre>int i = 461012;
+System.out.format("The value of i is: %d%n", i);
+</pre></blockquote>
+
+The <code>%d</code> specifies that the single variable is
+a decimal integer. The <code>%n</code> is a platform-independent
+newline character. The output is:
+<blockquote><pre>The value of i is: 461012
+</pre></blockquote>
+<p>The <code>printf</code> and <code>format</code> methods are overloaded.
+Each has a version with the following syntax:
+</p><blockquote><pre>public PrintStream format(Locale l, String format, Object... args)
+</pre></blockquote>
+To print numbers in the French system (where a comma is used in place of
+the decimal place in the English representation of floating point numbers),
+for example, you would use: 
+<blockquote><pre>System.out.format(Locale.FRANCE, "The value of the float variable is %f, while the value of the " + 
+                   "integer variable is %d, and the string is %s%n", floatVar, intVar, stringVar); 
+</pre></blockquote>
+<p>
+</p><h3 fmstyle="C-Head">An Example</h3>
+The following table lists some of the converters and flags that are
+used in the sample program, <code>TestFormat.java</code>,
+that follows the table.
+<p>
+<table width="70%" border="1" cellpadding="4" cellspacing="3">
+<caption><b>Converters and Flags Used in <code>TestFormat.java</code></b></caption>
+<tbody><tr>
+<th width="10%">
+Converter
+</th>
+
+<th width="10%">
+Flag
+</th>
+
+<th width="50%">
+Explanation
+</th>
+</tr>
+<tr>
+<td>
+d
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A decimal integer.
+</td>
+</tr>
+<tr>
+<td>
+f
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A float.
+</td>
+</tr>
+<tr>
+<td>
+n
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A new line character appropriate
+to the platform running the application. You should
+always use <code>%n</code>, rather than <code>\n</code>.
+</td>
+</tr>
+<tr>
+<td>
+tB
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—locale-specific full name of month.
+</td>
+</tr>
+<tr>
+<td>
+td, te
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—2-digit day of month. td has leading zeroes as needed, te does not.
+</td>
+</tr>
+<tr>
+<td>
+ty, tY
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—ty = 2-digit year, tY = 4-digit year.
+</td>
+</tr>
+<tr>
+<td>
+tl
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—hour in 12-hour clock.
+</td>
+</tr>
+<tr>
+<td>
+tM
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—minutes in 2 digits, with leading zeroes as necessary.
+</td>
+</tr>
+<tr>
+<td>
+tp
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—locale-specific am/pm (lower case).
+</td>
+</tr>
+<tr>
+<td>
+tm
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—months in 2 digits, with leading zeroes as necessary.
+</td>
+
+</tr>
+<tr>
+<td>
+tD
+</td>
+<td>
+&nbsp;
+</td>
+<td>
+A date &amp; time conversion—date as %tm%td%ty
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+08
+</td>
+<td>
+Eight characters in width, with leading zeroes as necessary.
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
++
+</td>
+<td>
+Includes sign, whether positive or negative.
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+,
+</td>
+<td>
+Includes locale-specific grouping characters.
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+-
+</td>
+<td>
+Left-justified..
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+.3
+</td>
+<td>
+Three places after decimal point.
+</td>
+</tr>
+<tr>
+<td>
+&nbsp;
+</td>
+<td>
+10.3
+</td>
+<td>
+Ten characters in width, right justified, with three places after decimal point.
+</td>
+</tr>
+</tbody></table>
+</p><p>
+The following program shows some of the formatting that you can do
+with <code>format</code>.  The output is shown within double quotes
+in the embedded comment:
+</p><p>
+</p><blockquote><pre>import java.util.Calendar;
+import java.util.Locale;
+
+public class TestFormat {
+    
+    public static void main(String[] args) {
+      long n = 461012;
+      System.out.format("%d%n", n);                  //  --&gt;  "461012"
+      System.out.format("%08d%n", n);                //  --&gt;  "00461012"
+      System.out.format("%+8d%n", n);                //  --&gt;  " +461012"
+      System.out.format("%,8d%n", n);                //  --&gt;  " 461,012"
+      System.out.format("%+,8d%n%n", n);             //  --&gt;  "+461,012"
+      
+      double pi = Math.PI;
+      System.out.format("%f%n", pi);                 //  --&gt;  "3.141593"
+      System.out.format("%.3f%n", pi);               //  --&gt;  "3.142"
+      System.out.format("%10.3f%n", pi);             //  --&gt;  "     3.142"
+      System.out.format("%-10.3f%n", pi);            //  --&gt;  "3.142"
+      System.out.format(Locale.FRANCE,
+                        "%-10.4f%n%n", pi);          //  --&gt;  "3,1416"
+
+      Calendar c = Calendar.getInstance();
+      System.out.format("%tB %te, %tY%n", c, c, c);  //  --&gt;  "May 29, 2006"
+      System.out.format("%tl:%tM %tp%n", c, c, c);   //  --&gt;  "2:34 am"
+      System.out.format("%tD%n", c);                 //  --&gt;  "05/29/06"
+    }
+}
+</pre></blockquote>
+
+<blockquote><hr><strong>Note:</strong>&nbsp;The discussion in this section covers just the basics of the
+<code>format</code> and <code>printf</code> methods.
+Further detail can be found in the 
+<a class="TutorialLink" target="_top" href="http://download.oracle.com/javase/tutorial/essential/io/formatting.html"><code>Basic I/O</code> </a> section titled "Formatting".
+Using <code>String.format</code> to create strings is covered
+in
+<a class="TutorialLink" target="_top" href="http://download.oracle.com/javase/tutorial/java/data/strings.html">Strings</a>.
+<hr></blockquote>
+<h3 fmstyle="C-Head">The DecimalFormat Class </h3>
+You can use the 
+<a class="APILink" target="_blank" href="http://download.oracle.com/javase/7/docs/api/java/text/DecimalFormat.html"><code>java.text.DecimalFormat</code> </a> class to control
+the display of leading and trailing zeros, prefixes and suffixes,
+grouping (thousands) separators, and the decimal separator. <code>DecimalFormat</code> offers a great deal of
+flexibility in the formatting of numbers, but it can make your code more complex.
+<p>
+The example that follows creates a <code>DecimalFormat</code> object, <code>myFormatter</code>, 
+by passing a pattern string to the <code>DecimalFormat</code>
+constructor. The <code>format()</code> method, which <code>DecimalFormat</code> 
+inherits from <code>NumberFormat</code>, is then invoked by <code>myFormatter</code>—it accepts a <code>double</code>
+value as an argument and returns the formatted number in a string:
+
+</p><p>
+
+Here is a sample program that illustrates the use of <code>DecimalFormat</code>:
+</p><p>
+</p><blockquote><pre>
+import java.text.*;
+
+public class DecimalFormatDemo {
+
+   static public void customFormat(String pattern, double value ) {
+      DecimalFormat myFormatter = new DecimalFormat(pattern);
+      String output = myFormatter.format(value);
+      System.out.println(value + "  " + pattern + "  " + output);
+   }
+
+   static public void main(String[] args) {
+
+      customFormat("###,###.###", 123456.789);
+      customFormat("###.##", 123456.789);
+      customFormat("000000.000", 123.78);
+      customFormat("$###,###.###", 12345.67);  
+   }
+}
+
+</pre></blockquote>
+<p>
+
+The output is:
+</p><blockquote><pre>123456.789  ###,###.###  123,456.789
+123456.789  ###.##  123456.79
+123.78  000000.000  000123.780
+12345.67  $###,###.###  $12,345.67
+</pre></blockquote>
+<p>
+The following table explains each line of output.
+</p><p>
+<table width="100%" border="1" cellpadding="4" cellspacing="3">
+<caption><b><code>DecimalFormat.java</code> Output</b></caption>
+<tbody><tr>
+<th>
+Value
+</th>
+
+<th>
+Pattern
+</th>
+
+<th>
+Output
+</th>
+
+<th>
+Explanation
+</th>
+</tr>
+<tr>
+<td>
+123456.789
+</td>
+<td>
+###,###.###
+</td>
+<td>
+123,456.789
+</td>
+<td>
+The pound sign (#) denotes a digit, the comma is a placeholder for the
+grouping separator, and the period is a placeholder for the decimal
+separator.
+</td>
+</tr>
+<tr>
+<td>
+123456.789
+</td>
+<td>
+###.##
+</td>
+<td>
+123456.79
+</td>
+<td>
+The <code>value</code> has three digits to the right of the decimal
+point, but the <code>pattern</code> has only two. The
+<code>format</code> method handles this by rounding up.
+</td>
+</tr>
+<tr>
+<td>
+123.78
+</td>
+<td>
+000000.000
+</td>
+<td>
+000123.780
+</td>
+<td>
+The <code>pattern</code> specifies leading and trailing zeros, because
+the 0 character is used instead of the pound sign (#).
+</td>
+</tr>
+<tr>
+<td>
+12345.67
+</td>
+<td>
+$###,###.###
+</td>
+<td>
+$12,345.67
+</td>
+<td>
+The first character in the <code>pattern</code> is the dollar sign ($).
+Note that it immediately precedes the leftmost digit in the formatted
+<code>output</code>.
+</td>
+</tr>
+</tbody></table>
+
+        </p></blockquote>
+        <div class="NavBit">
+            <a target="_top" href="http://download.oracle.com/javase/tutorial/java/data/numberclasses.html">« Previous</a>
+            •
+            <a target="_top" href="http://download.oracle.com/javase/tutorial/java/TOC.html">Trail</a>
+            •
+            <a target="_top" href="http://download.oracle.com/javase/tutorial/java/data/beyondmath.html">Next »</a>
+        </div>
+    </div>
+    <div id="Footer2">
+<hr>
+<div id="TagNotes"><font size="1" face="sans-serif">
+    Problems with the examples? Try <a target="_blank" href="http://download.oracle.com/javase/tutorial/information/run-examples.html">Compiling and Running
+        the Examples: FAQs</a>.
+    <br>
+    Complaints? Compliments? Suggestions? <a target="_blank" href="http://download.oracle.com/javase/feedback.html">Give
+    us your feedback</a>.
+</font></div> 
+
+<div id="Footer">
+<p><font size="1" face="sans-serif"><a name="license_info">Your use of this</a> page and all the material on pages under "The Java Tutorials" banner,
+and all the material on pages under "The Java Tutorials" banner is subject to the <a href="http://download.oracle.com/javase/tutorial/information/license.html">Java SE Tutorial Copyright
+and License</a>.
+Additionally, any example code contained in any of these Java
+Tutorials pages is licensed under the
+<a href="http://developers.sun.com/license/berkeley_license.html">Code
+Sample License</a>.
+
+<table width="100%" border="0" cellspacing="0" cellpadding="5">
+    <tbody><tr>
+         <td width="20%">
+	 <table width="100%" border="0" cellspacing="0" cellpadding="5">
+            <tbody><tr>
+              <td align="center"><img id="duke" src="./e14_files/DukeWave.gif" width="55" height="55" alt="duke image"></td>
+              <td align="left" valign="middle"><img id="oracle" src="./e14_files/logo_oracle_footer.gif" width="100" height="29" alt="Oracle logo"></td>
+           </tr>
+          </tbody></table>
+          </td>
+
+          <td width="55%" valign="middle" align="center">
+		<font color="#7E9CB1" size="1"><a href="http://www.oracle.com/us/corporate/index.html">About Oracle</a> | <a href="http://www.oracle.com/technology/index.html">Oracle Technology Network</a> | <a href="https://www.samplecode.oracle.com/servlets/CompulsoryClickThrough?type=TermsOfService">Terms of Service</a> </font><font color="#7E9CB1">&nbsp;</font> 
+	 </td>
+          <td width="25%" valign="middle" align="right">
+      		<font color="#4B7592" size="2">Copyright © 1995, 2010 Oracle and/or its affiliates. All rights reserved.</font>
+	 </td>
+     </tr>     
+</tbody></table>
+</font></p></div><font size="1" face="sans-serif">
+    </font></div><font size="1" face="sans-serif">
+    <div class="PrintHeaders">
+        <b>Previous page:</b> The Numbers Classes
+        <br><b>Next page:</b> Beyond Basic Arithmetic
+    </div>
+
+<!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="./e14_files/s_code_download.js"></script>
+<script language="JavaScript" src="./e14_files/s_code.js"></script>
+<noscript> 
+A browser with JavaScript enabled is required for this page to operate properly.
+</noscript>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+
+ 
+<!-- End SiteCatalyst code -->
+
+    <!-- Start SiteCatalyst code   -->
+<script language="JavaScript" src="./e14_files/s_code_download.js"></script>
+<script language="JavaScript" src="./e14_files/s_code.js"></script>
+ 
+<!-- ********** DO NOT ALTER ANYTHING BELOW THIS LINE ! *********** -->
+<!--  Below code will send the info to Omniture server -->
+<script language="javascript">var s_code=s.t();if(s_code)document.write(s_code)</script>
+ 
+<!-- End SiteCatalyst code -->
+
+ 
+</font></body></html>
